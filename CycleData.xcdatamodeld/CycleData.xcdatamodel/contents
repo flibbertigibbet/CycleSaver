@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="LocationReading" syncable="YES">
+        <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="horizontalAccuracy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="readingTrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripLocations" inverseEntity="Trip" syncable="YES"/>
+    </entity>
+    <entity name="Trip" syncable="YES">
+        <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="stop" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="tripLocations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="LocationReading" inverseName="readingTrip" inverseEntity="LocationReading" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="LocationReading" positionX="-324" positionY="-13" width="128" height="148"/>
+        <element name="Trip" positionX="-603" positionY="72" width="128" height="88"/>
+    </elements>
+</model>
