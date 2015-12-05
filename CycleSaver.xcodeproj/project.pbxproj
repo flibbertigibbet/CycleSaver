@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4697CC7C1BFBFD8400E5A29E /* CycleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4697CC7A1BFBFD8400E5A29E /* CycleData.xcdatamodeld */; };
+		4600042F1C1386C0005A23B4 /* TripData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4600042D1C1386C0005A23B4 /* TripData.xcdatamodeld */; };
+		460004341C138916005A23B4 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */; };
+		460004351C138916005A23B4 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460004311C138916005A23B4 /* Trip.swift */; };
+		460004361C138916005A23B4 /* LocationReading+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */; };
+		460004371C138916005A23B4 /* LocationReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460004331C138916005A23B4 /* LocationReading.swift */; };
+		46AB6CE11C136AB300ECB3C2 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */; };
 		46D737201BEE4FFA0022361D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D7371F1BEE4FFA0022361D /* AppDelegate.swift */; };
 		46D737221BEE4FFA0022361D /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D737211BEE4FFA0022361D /* MapController.swift */; };
 		46D737251BEE4FFA0022361D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46D737231BEE4FFA0022361D /* Main.storyboard */; };
@@ -35,7 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4697CC7B1BFBFD8400E5A29E /* CycleData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CycleData.xcdatamodel; sourceTree = "<group>"; };
+		4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TripData.xcdatamodel; sourceTree = "<group>"; };
+		460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		460004311C138916005A23B4 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		460004331C138916005A23B4 /* LocationReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationReading.swift; sourceTree = "<group>"; };
+		46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		46D7371C1BEE4FFA0022361D /* CycleSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D7371F1BEE4FFA0022361D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46D737211BEE4FFA0022361D /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
@@ -79,7 +89,11 @@
 		46D737131BEE4FFA0022361D = {
 			isa = PBXGroup;
 			children = (
-				4697CC7A1BFBFD8400E5A29E /* CycleData.xcdatamodeld */,
+				460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */,
+				460004311C138916005A23B4 /* Trip.swift */,
+				460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */,
+				460004331C138916005A23B4 /* LocationReading.swift */,
+				4600042D1C1386C0005A23B4 /* TripData.xcdatamodeld */,
 				46D7371E1BEE4FFA0022361D /* CycleSaver */,
 				46D737331BEE4FFB0022361D /* CycleSaverTests */,
 				46D7373E1BEE4FFB0022361D /* CycleSaverUITests */,
@@ -106,6 +120,7 @@
 				46D737261BEE4FFA0022361D /* Assets.xcassets */,
 				46D737281BEE4FFA0022361D /* LaunchScreen.storyboard */,
 				46D7372B1BEE4FFA0022361D /* Info.plist */,
+				46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */,
 			);
 			path = CycleSaver;
 			sourceTree = "<group>";
@@ -260,9 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460004351C138916005A23B4 /* Trip.swift in Sources */,
 				46D737221BEE4FFA0022361D /* MapController.swift in Sources */,
+				460004361C138916005A23B4 /* LocationReading+CoreDataProperties.swift in Sources */,
+				460004371C138916005A23B4 /* LocationReading.swift in Sources */,
 				46D737201BEE4FFA0022361D /* AppDelegate.swift in Sources */,
-				4697CC7C1BFBFD8400E5A29E /* CycleData.xcdatamodeld in Sources */,
+				4600042F1C1386C0005A23B4 /* TripData.xcdatamodeld in Sources */,
+				460004341C138916005A23B4 /* Trip+CoreDataProperties.swift in Sources */,
+				46AB6CE11C136AB300ECB3C2 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,13 +534,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4697CC7A1BFBFD8400E5A29E /* CycleData.xcdatamodeld */ = {
+		4600042D1C1386C0005A23B4 /* TripData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				4697CC7B1BFBFD8400E5A29E /* CycleData.xcdatamodel */,
+				4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */,
 			);
-			currentVersion = 4697CC7B1BFBFD8400E5A29E /* CycleData.xcdatamodel */;
-			path = CycleData.xcdatamodeld;
+			currentVersion = 4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */;
+			path = TripData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

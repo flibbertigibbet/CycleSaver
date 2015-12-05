@@ -8,14 +8,27 @@
 
 import UIKit
 import MapKit
+import CoreData
+
 
 class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
     var amRecording = false
+    var currentTrip: Trip?
+    
+    var readingEntity: NSEntityDescription?
+    var tripEntity: NSEntityDescription?
     
     lazy var manager = (UIApplication.sharedApplication().delegate as! AppDelegate).manager
+    var managedContext: NSManagedObjectContext!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +43,17 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         // show and track user location
         mapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
         mapView.showsUserLocation = true
+        
+        
+        if (managedContext == nil) {
+            print("Have no managed context in viewDidLoad!")
+        }
+        
+        tripEntity = NSEntityDescription.entityForName("Trip",
+            inManagedObjectContext: managedContext)
+
+        readingEntity = NSEntityDescription.entityForName("LocationReading",
+            inManagedObjectContext: managedContext)
     }
     
     @IBAction func startStopButtonTapped(sender: UIButton) {
@@ -41,6 +65,15 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             sender.backgroundColor = UIColor.redColor()
             
             if CLLocationManager.locationServicesEnabled() {
+                
+                do {
+                    currentTrip = Trip(entity: tripEntity!, insertIntoManagedObjectContext: managedContext)
+                    currentTrip?.start = NSDate()
+                    try managedContext.save()
+                } catch let error as NSError {
+                        print("Error: \(error) " + "description \(error.localizedDescription)")
+                }
+                
                 manager?.startUpdatingLocation()
                 print("stared recording")
             } else {
@@ -53,6 +86,14 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             sender.backgroundColor = UIColor.greenColor()
             manager?.stopUpdatingLocation()
             print("stopped recording")
+            
+            do {
+                currentTrip?.stop = NSDate()
+                try managedContext.save()
+                currentTrip = nil
+            } catch let error as NSError {
+                print("Error: \(error) " + "description \(error.localizedDescription)")
+            }
         }
     }
     
@@ -68,7 +109,23 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         */
         
         print("new location: \(newLocation.coordinate)")
+        
+        do {
+            
+            let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
+            
+            currentLocation.latitude = newLocation.coordinate.latitude
+            currentLocation.longitude = newLocation.coordinate.longitude
+            currentLocation.altitude = newLocation.altitude
+            currentLocation.horizontalAccuracy = newLocation.horizontalAccuracy
+            currentLocation.speed = newLocation.speed
+            currentLocation.timestamp = newLocation.timestamp
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error: \(error) " + "description \(error.localizedDescription)")
+        }
     }
-    
+
 }
 
