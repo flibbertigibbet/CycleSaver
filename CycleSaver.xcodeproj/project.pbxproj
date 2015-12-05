@@ -41,10 +41,10 @@
 
 /* Begin PBXFileReference section */
 		4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TripData.xcdatamodel; sourceTree = "<group>"; };
-		460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		460004311C138916005A23B4 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
-		460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		460004331C138916005A23B4 /* LocationReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationReading.swift; sourceTree = "<group>"; };
+		460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Trip+CoreDataProperties.swift"; path = "../Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		460004311C138916005A23B4 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Trip.swift; path = ../Trip.swift; sourceTree = "<group>"; };
+		460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationReading+CoreDataProperties.swift"; path = "../LocationReading+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		460004331C138916005A23B4 /* LocationReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationReading.swift; path = ../LocationReading.swift; sourceTree = "<group>"; };
 		46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		46D7371C1BEE4FFA0022361D /* CycleSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CycleSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D7371F1BEE4FFA0022361D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,14 +86,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		46D737131BEE4FFA0022361D = {
+		4696A2741C13AD87002E5F58 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4600042D1C1386C0005A23B4 /* TripData.xcdatamodeld */,
+				46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */,
 				460004301C138916005A23B4 /* Trip+CoreDataProperties.swift */,
 				460004311C138916005A23B4 /* Trip.swift */,
 				460004321C138916005A23B4 /* LocationReading+CoreDataProperties.swift */,
 				460004331C138916005A23B4 /* LocationReading.swift */,
-				4600042D1C1386C0005A23B4 /* TripData.xcdatamodeld */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		46D737131BEE4FFA0022361D = {
+			isa = PBXGroup;
+			children = (
 				46D7371E1BEE4FFA0022361D /* CycleSaver */,
 				46D737331BEE4FFB0022361D /* CycleSaverTests */,
 				46D7373E1BEE4FFB0022361D /* CycleSaverUITests */,
@@ -114,13 +122,13 @@
 		46D7371E1BEE4FFA0022361D /* CycleSaver */ = {
 			isa = PBXGroup;
 			children = (
+				4696A2741C13AD87002E5F58 /* Models */,
 				46D7371F1BEE4FFA0022361D /* AppDelegate.swift */,
 				46D737211BEE4FFA0022361D /* MapController.swift */,
 				46D737231BEE4FFA0022361D /* Main.storyboard */,
 				46D737261BEE4FFA0022361D /* Assets.xcassets */,
 				46D737281BEE4FFA0022361D /* LaunchScreen.storyboard */,
 				46D7372B1BEE4FFA0022361D /* Info.plist */,
-				46AB6CE01C136AB300ECB3C2 /* CoreDataStack.swift */,
 			);
 			path = CycleSaver;
 			sourceTree = "<group>";
@@ -540,7 +548,8 @@
 				4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */,
 			);
 			currentVersion = 4600042E1C1386C0005A23B4 /* TripData.xcdatamodel */;
-			path = TripData.xcdatamodeld;
+			name = TripData.xcdatamodeld;
+			path = ../TripData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Record-->
@@ -124,21 +125,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jtl-Lq-PxP">
-                                <rect key="frame" x="0.0" y="59" width="600" height="467"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jtl-Lq-PxP">
+                                <rect key="frame" x="0.0" y="59" width="598" height="492"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mTM-yo-rPR">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="467"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VPH-GF-sCu">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="467"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
                                                 <subviews>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdR-jt-rvB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="467"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EHH-lb-7DJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                                        <subviews>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdR-jt-rvB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                                                <animations/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                            </tableView>
+                                                        </subviews>
                                                         <animations/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                    </tableView>
+                                                    </stackView>
                                                 </subviews>
                                                 <animations/>
                                             </stackView>
@@ -152,11 +159,10 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="TCv-wn-q6v" firstAttribute="top" secondItem="tdR-jt-rvB" secondAttribute="bottom" constant="25" id="9xK-bA-Ycb"/>
-                            <constraint firstItem="tdR-jt-rvB" firstAttribute="top" secondItem="QPM-v6-ZcA" secondAttribute="bottom" constant="-5" id="JjG-nw-qIO"/>
-                            <constraint firstItem="tdR-jt-rvB" firstAttribute="width" secondItem="krb-HD-9gn" secondAttribute="width" id="inS-2z-Yn6"/>
-                            <constraint firstItem="tdR-jt-rvB" firstAttribute="centerX" secondItem="krb-HD-9gn" secondAttribute="centerX" id="lHZ-Ej-V8t"/>
-                            <constraint firstItem="tdR-jt-rvB" firstAttribute="top" secondItem="QPM-v6-ZcA" secondAttribute="bottom" constant="-5" id="qW1-4x-Duh"/>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="top" secondItem="krb-HD-9gn" secondAttribute="topMargin" constant="59" id="97Z-Uo-TBW"/>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="leading" secondItem="krb-HD-9gn" secondAttribute="leading" id="AiK-cd-7n0"/>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="bottom" secondItem="TCv-wn-q6v" secondAttribute="top" id="Vy0-ND-IP4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jtl-Lq-PxP" secondAttribute="trailing" constant="-18" id="vpS-lB-0Vb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trips" id="H6o-Xn-3Q5"/>
