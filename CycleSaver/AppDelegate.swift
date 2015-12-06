@@ -34,9 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navigationController = self.window!.rootViewController as! UINavigationController
         
-        print("Nav controller is a: \(navigationController)")
+        print("Nav controller is a: \(navigationController.description)")
         
-        let viewController = navigationController.topViewController as! MapController
+        let tabController = navigationController.topViewController as! UITabBarController
+        
+        print("Tab controller: \(tabController.description)")
+        
+        let viewController = tabController.viewControllers?.first as! MapController
         
         print("View controller is a: \(viewController)")
         

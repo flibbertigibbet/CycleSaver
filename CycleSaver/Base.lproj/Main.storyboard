@@ -3,9 +3,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Cycle Saver Map-->
+        <!--Record-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapController" customModule="CycleSaver" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,43 +18,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-P9-tFZ">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Jw3-UJ-sqW">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcH-P9-tFZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <animations/>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                    </mapView>
+                                </subviews>
                                 <animations/>
-                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
-                            </mapView>
-                            <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sg0-kr-wqV">
-                                <rect key="frame" x="257" y="536" width="86" height="44"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lZP-Tc-MEc">
+                                <rect key="frame" x="257" y="499" width="86" height="44"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ypC-s4-AHG">
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="44"/>
+                                        <subviews>
+                                            <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sg0-kr-wqV">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="44"/>
+                                                <animations/>
+                                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                                <state key="normal" title="Start">
+                                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="startStopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WXc-o1-6FO"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                    </stackView>
+                                </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="startStopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WXc-o1-6FO"/>
-                                </connections>
-                            </button>
+                            </stackView>
                         </subviews>
                         <animations/>
                         <constraints>
-                            <constraint firstItem="sg0-kr-wqV" firstAttribute="centerX" secondItem="HcO-ff-WK0" secondAttribute="centerX" id="9JC-IX-Pje"/>
-                            <constraint firstItem="Dgu-Nq-D1f" firstAttribute="top" secondItem="KcH-P9-tFZ" secondAttribute="bottom" id="Pjf-Hy-Ymr"/>
-                            <constraint firstAttribute="trailing" secondItem="KcH-P9-tFZ" secondAttribute="trailing" id="UIu-aO-tqx"/>
-                            <constraint firstItem="Dgu-Nq-D1f" firstAttribute="top" secondItem="sg0-kr-wqV" secondAttribute="bottom" constant="20" id="WrF-zO-Fb7"/>
-                            <constraint firstItem="KcH-P9-tFZ" firstAttribute="top" secondItem="HcO-ff-WK0" secondAttribute="top" id="lWg-tt-0ZN"/>
-                            <constraint firstItem="KcH-P9-tFZ" firstAttribute="leading" secondItem="HcO-ff-WK0" secondAttribute="leading" id="u8r-TN-bsm"/>
+                            <constraint firstItem="Jw3-UJ-sqW" firstAttribute="leading" secondItem="HcO-ff-WK0" secondAttribute="leading" id="HMW-yE-Cd8"/>
+                            <constraint firstAttribute="trailing" secondItem="Jw3-UJ-sqW" secondAttribute="trailing" id="NH9-za-vZH"/>
+                            <constraint firstItem="Dgu-Nq-D1f" firstAttribute="top" secondItem="lZP-Tc-MEc" secondAttribute="bottom" constant="8" symbolic="YES" id="bMC-ax-cny"/>
+                            <constraint firstItem="Jw3-UJ-sqW" firstAttribute="top" secondItem="HcO-ff-WK0" secondAttribute="top" id="bfm-eA-oX4"/>
+                            <constraint firstAttribute="bottom" secondItem="Jw3-UJ-sqW" secondAttribute="bottom" id="li3-FY-A5i"/>
+                            <constraint firstItem="Jw3-UJ-sqW" firstAttribute="centerX" secondItem="lZP-Tc-MEc" secondAttribute="centerX" id="x7k-c4-KxS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Cycle Saver Map" id="oLz-D5-cUc"/>
+                    <tabBarItem key="tabBarItem" title="Record" image="tabbar_record.png" selectedImage="tabbar_record.png" id="ak7-PL-4eX"/>
                     <connections>
                         <outlet property="mapView" destination="KcH-P9-tFZ" id="rZT-av-enA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="463"/>
+            <point key="canvasLocation" x="997" y="-363"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dzX-AV-tJ2">
@@ -67,12 +86,94 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="C3j-EM-aTu"/>
+                        <segue destination="uXB-UR-RL8" kind="relationship" relationship="rootViewController" id="C3j-EM-aTu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTZ-y3-5Ea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="302" y="463"/>
+            <point key="canvasLocation" x="-454" y="-363"/>
+        </scene>
+        <!--CycleSaver-->
+        <scene sceneID="ykP-P8-B6s">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="uXB-UR-RL8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="CycleSaver" id="5kL-o6-C32"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="cXW-bC-dpN">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="R7E-rH-fIj"/>
+                        <segue destination="QmD-qp-g4E" kind="relationship" relationship="viewControllers" id="HhU-m8-yD4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fS9-RT-Pwp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="251" y="-363"/>
+        </scene>
+        <!--Trips-->
+        <scene sceneID="p8H-ba-0mQ">
+            <objects>
+                <viewController id="QmD-qp-g4E" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QPM-v6-ZcA"/>
+                        <viewControllerLayoutGuide type="bottom" id="TCv-wn-q6v"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="krb-HD-9gn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jtl-Lq-PxP">
+                                <rect key="frame" x="0.0" y="59" width="598" height="492"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mTM-yo-rPR">
+                                        <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VPH-GF-sCu">
+                                                <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EHH-lb-7DJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                                        <subviews>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tdR-jt-rvB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="598" height="492"/>
+                                                                <animations/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                            </tableView>
+                                                        </subviews>
+                                                        <animations/>
+                                                    </stackView>
+                                                </subviews>
+                                                <animations/>
+                                            </stackView>
+                                        </subviews>
+                                        <animations/>
+                                    </stackView>
+                                </subviews>
+                                <animations/>
+                            </stackView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="top" secondItem="krb-HD-9gn" secondAttribute="topMargin" constant="59" id="97Z-Uo-TBW"/>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="leading" secondItem="krb-HD-9gn" secondAttribute="leading" id="AiK-cd-7n0"/>
+                            <constraint firstItem="jtl-Lq-PxP" firstAttribute="bottom" secondItem="TCv-wn-q6v" secondAttribute="top" id="Vy0-ND-IP4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jtl-Lq-PxP" secondAttribute="trailing" constant="-18" id="vpS-lB-0Vb"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Trips" image="tabbar_view.png" selectedImage="tabbar_view.png" id="H6o-Xn-3Q5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mEe-LV-dm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="957" y="413"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar_record.png" width="30" height="30"/>
+        <image name="tabbar_view.png" width="30" height="30"/>
+    </resources>
 </document>
