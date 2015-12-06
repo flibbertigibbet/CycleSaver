@@ -41,10 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Tab controller: \(tabController.description)")
         
         let viewController = tabController.viewControllers?.first as! MapController
+    
         
         print("View controller is a: \(viewController)")
         
         viewController.managedContext = coreDataStack.context
+        
+        let tripsController = tabController.viewControllers?.last as! TripListController
+        
+        tripsController.coreDataStack = coreDataStack
+        
         print("managed context set!")
 
         return true

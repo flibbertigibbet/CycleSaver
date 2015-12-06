@@ -116,7 +116,7 @@
         <!--Trips-->
         <scene sceneID="p8H-ba-0mQ">
             <objects>
-                <viewController id="QmD-qp-g4E" sceneMemberID="viewController">
+                <viewController id="QmD-qp-g4E" customClass="TripListController" customModule="CycleSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QPM-v6-ZcA"/>
                         <viewControllerLayoutGuide type="bottom" id="TCv-wn-q6v"/>
@@ -142,6 +142,63 @@
                                                                 <animations/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                                <prototypes>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tripCellReuseIdentifier" id="RBI-cm-IYm" customClass="TripCell" customModule="CycleSaver" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="92" width="598" height="44"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RBI-cm-IYm" id="cZn-ya-9qn">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="598" height="43"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Started:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIZ-tR-DDl">
+                                                                                    <rect key="frame" x="8" y="11" width="67" height="21"/>
+                                                                                    <animations/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXa-RQ-X95">
+                                                                                    <rect key="frame" x="77" y="11" width="145" height="21"/>
+                                                                                    <animations/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ended:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBC-EH-HTm">
+                                                                                    <rect key="frame" x="230" y="11" width="61" height="21"/>
+                                                                                    <animations/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q32-12-hzj">
+                                                                                    <rect key="frame" x="299" y="11" width="241" height="21"/>
+                                                                                    <animations/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Foo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wi-nQ-Yhk">
+                                                                                    <rect key="frame" x="548" y="11" width="42" height="21"/>
+                                                                                    <animations/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <animations/>
+                                                                        </tableViewCellContentView>
+                                                                        <animations/>
+                                                                        <connections>
+                                                                            <outlet property="coordsCount" destination="6wi-nQ-Yhk" id="fVR-Xa-uAp"/>
+                                                                            <outlet property="startLabel" destination="ZXa-RQ-X95" id="PDo-nX-lEu"/>
+                                                                            <outlet property="stopLabel" destination="q32-12-hzj" id="PPA-qo-2ei"/>
+                                                                        </connections>
+                                                                    </tableViewCell>
+                                                                </prototypes>
+                                                                <connections>
+                                                                    <outlet property="dataSource" destination="QmD-qp-g4E" id="o54-7r-6tc"/>
+                                                                </connections>
                                                             </tableView>
                                                         </subviews>
                                                         <animations/>
@@ -166,6 +223,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trips" image="tabbar_view.png" selectedImage="tabbar_view.png" id="H6o-Xn-3Q5"/>
+                    <connections>
+                        <outlet property="tripTableView" destination="tdR-jt-rvB" id="44t-hh-b9A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEe-LV-dm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
