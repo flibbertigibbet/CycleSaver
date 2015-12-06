@@ -65,7 +65,7 @@
                             <constraint firstItem="Jw3-UJ-sqW" firstAttribute="centerX" secondItem="lZP-Tc-MEc" secondAttribute="centerX" id="x7k-c4-KxS"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Record" id="ak7-PL-4eX"/>
+                    <tabBarItem key="tabBarItem" title="Record" image="tabbar_record.png" selectedImage="tabbar_record.png" id="ak7-PL-4eX"/>
                     <connections>
                         <outlet property="mapView" destination="KcH-P9-tFZ" id="rZT-av-enA"/>
                     </connections>
@@ -165,11 +165,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="jtl-Lq-PxP" secondAttribute="trailing" constant="-18" id="vpS-lB-0Vb"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Trips" id="H6o-Xn-3Q5"/>
+                    <tabBarItem key="tabBarItem" title="Trips" image="tabbar_view.png" selectedImage="tabbar_view.png" id="H6o-Xn-3Q5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEe-LV-dm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="413"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabbar_record.png" width="30" height="30"/>
+        <image name="tabbar_view.png" width="30" height="30"/>
+    </resources>
 </document>
