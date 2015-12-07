@@ -30,29 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //manager?.allowDeferredLocationUpdatesUntilTraveled(<#T##distance: CLLocationDistance##CLLocationDistance#>, timeout: <#T##NSTimeInterval#>)
         
         let root = self.window!.rootViewController
-        print("Root view controller is a: \(root?.description)")
         
         let navigationController = self.window!.rootViewController as! UINavigationController
-        
-        print("Nav controller is a: \(navigationController.description)")
-        
-        let tabController = navigationController.topViewController as! UITabBarController
-        
-        print("Tab controller: \(tabController.description)")
+                let tabController = navigationController.topViewController as! UITabBarController
         
         let viewController = tabController.viewControllers?.first as! MapController
-    
-        
-        print("View controller is a: \(viewController)")
-        
-        viewController.managedContext = coreDataStack.context
+            viewController.managedContext = coreDataStack.context
         
         let tripsController = tabController.viewControllers?.last as! TripListController
         
         tripsController.coreDataStack = coreDataStack
         
-        print("managed context set!")
-
         return true
     }
 

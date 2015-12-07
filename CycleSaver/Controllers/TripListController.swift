@@ -30,12 +30,14 @@ class TripListController: UIViewController {
         let fetchRequest = NSFetchRequest(entityName: "Trip")
         
         let startSort = NSSortDescriptor(key: "start", ascending: true)
-        let stopSort = NSSortDescriptor(key: "stop", ascending: false)
+        let stopSort = NSSortDescriptor(key: "stop", ascending: true)
 
         fetchRequest.sortDescriptors = [startSort, stopSort]
 
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: "tripDataCache")
+        
+        fetchedResultsController.delegate = self
 
         do {
             try fetchedResultsController.performFetch()
@@ -46,7 +48,7 @@ class TripListController: UIViewController {
     
     
     func configureCell(cell: TripCell, indexPath: NSIndexPath) {
-        let trip = fetchedResultsController.objectAtIndexPath(indexPath) as!Trip
+        let trip = fetchedResultsController.objectAtIndexPath(indexPath) as! Trip
         
         if let tripStart = trip.start {
             cell.startLabel.text = formatter.stringFromDate(tripStart)
@@ -91,9 +93,23 @@ extension TripListController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let trip = fetchedResultsController.objectAtIndexPath(indexPath) as! Trip
+        // TODO: make this trigger
+        print("Selected trip that started at \(trip.start).")
+    }
     
-        print("Hey that tickes! Selected trip that started at \(trip.start).")
-        //coreDataStack.saveContext()
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        switch editingStyle {
+        case .Delete:
+            // delete from data source here; this will then trigger deletion on the NSFetchedResultsControllerDelegate, which updates the view
+            let trip = fetchedResultsController.objectAtIndexPath(indexPath) as! Trip
+            coreDataStack.context.deleteObject(trip)
+            coreDataStack.saveContext()
+        default: break
+        }
     }
 }
 
@@ -102,24 +118,20 @@ extension TripListController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
         tripTableView.beginUpdates()
     }
-    
-    func controller(controller: NSFetchedResultsController,
-        didChangeObject anObject: AnyObject,
-        atIndexPath indexPath: NSIndexPath?,
-        forChangeType type: NSFetchedResultsChangeType,
-        newIndexPath: NSIndexPath?) {
+
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
         switch type {
-            case .Insert:
-                tripTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
-            case .Delete:
-                tripTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-            case .Update:
-                let cell = tripTableView.cellForRowAtIndexPath(indexPath!) as! TripCell
-                configureCell(cell, indexPath: indexPath!)
-            case .Move:
-                tripTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
-                tripTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+        case .Insert:
+            tripTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
+        case .Delete:
+            tripTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+        case .Update:
+            let cell = tripTableView.cellForRowAtIndexPath(indexPath!) as! TripCell
+            configureCell(cell, indexPath: indexPath!)
+        case .Move:
+            tripTableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Automatic)
+            tripTableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Automatic)
         }
     }
     
@@ -127,20 +139,15 @@ extension TripListController: NSFetchedResultsControllerDelegate {
         tripTableView.endUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController,
-        didChangeSection sectionInfo: NSFetchedResultsSectionInfo,
-        atIndex sectionIndex: Int,
-        forChangeType type: NSFetchedResultsChangeType) {
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int,forChangeType type: NSFetchedResultsChangeType) {
         
         let indexSet = NSIndexSet(index: sectionIndex)
         
         switch type {
             case .Insert:
-                tripTableView.insertSections(indexSet,
-                withRowAnimation: .Automatic)
+                tripTableView.insertSections(indexSet, withRowAnimation: .Automatic)
             case .Delete:
-                tripTableView.deleteSections(indexSet,
-                withRowAnimation: .Automatic)
+                tripTableView.deleteSections(indexSet, withRowAnimation: .Automatic)
             default :
                 break
         }

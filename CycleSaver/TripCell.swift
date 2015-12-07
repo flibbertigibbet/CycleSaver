@@ -25,19 +25,4 @@ class TripCell: UITableViewCell {
         stopLabel.text = nil
         coordsCount.text = nil
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        
-        print("TODO: set selected TripCell?")
-
-        // Configure the view for the selected state
-    }
-
 }
