@@ -26,8 +26,6 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        
     }
     
     override func viewDidLoad() {
@@ -75,7 +73,7 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
                 }
                 
                 manager?.startUpdatingLocation()
-                print("stared recording")
+                print("started recording")
             } else {
                 // TODO: handle with message or prompt
                 print("Location services not enabled!")
@@ -122,6 +120,7 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             currentLocation.timestamp = newLocation.timestamp
             
             try managedContext.save()
+            
         } catch let error as NSError {
             print("Error: \(error) " + "description \(error.localizedDescription)")
         }

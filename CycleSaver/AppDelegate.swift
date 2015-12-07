@@ -29,8 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //manager?.allowsBackgroundLocationUpdates = true
         //manager?.allowDeferredLocationUpdatesUntilTraveled(<#T##distance: CLLocationDistance##CLLocationDistance#>, timeout: <#T##NSTimeInterval#>)
         
-        let root = self.window!.rootViewController
-        
         let navigationController = self.window!.rootViewController as! UINavigationController
                 let tabController = navigationController.topViewController as! UITabBarController
         

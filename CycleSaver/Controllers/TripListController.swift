@@ -41,6 +41,7 @@ class TripListController: UIViewController {
 
         do {
             try fetchedResultsController.performFetch()
+            tripTableView.reloadData()
         } catch let error as NSError {
             print("Error: \(error.localizedDescription)")
         }
