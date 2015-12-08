@@ -93,6 +93,8 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
                 currentTrip?.stop = NSDate()
                 try managedContext.save()
                 currentTrip = nil
+                lastLocation = nil
+                mapView.removeOverlays(mapView.overlays)
             } catch let error as NSError {
                 print("Error: \(error) " + "description \(error.localizedDescription)")
             }
