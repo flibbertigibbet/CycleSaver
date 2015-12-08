@@ -35,7 +35,7 @@ class TripListController: UIViewController {
         fetchRequest.sortDescriptors = [startSort, stopSort]
 
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: "tripDataCache")
+            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
 

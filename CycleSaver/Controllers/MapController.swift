@@ -15,8 +15,11 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
 
     @IBOutlet weak var mapView: MKMapView!
     
+    let drawIfWithinMeters = 100.0 // add to user-visible polyline points within this many meters of accuracy
+    
     var amRecording = false
     var currentTrip: Trip?
+    var lastLocation: CLLocationCoordinate2D?
     
     var readingEntity: NSEntityDescription?
     var tripEntity: NSEntityDescription?
@@ -31,6 +34,7 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
         manager?.delegate = self
         
         // start out centered on Philly City Hall
@@ -97,19 +101,20 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
-        // potentially interesting things:
-        /*
-        newLocation.altitude
-        newLocation.horizontalAccuracy // radius of uncertainty in meters
-        newLocation.speed // instantaneous. m/s
-        newLocation.timestamp
-        newLocation.verticalAccuracy
-        */
-        
         print("new location: \(newLocation.coordinate)")
         
+        // draw line from last location to this
+        if (newLocation.horizontalAccuracy < drawIfWithinMeters) {
+            if let last = lastLocation {
+                var coords = [last, newLocation.coordinate]
+                let polyline = MKPolyline(coordinates: &coords, count: coords.count)
+                mapView.addOverlay(polyline)
+            }
+            lastLocation = newLocation.coordinate
+        }
+        
+        // save to CoreData
         do {
-            
             let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
             
             currentLocation.latitude = newLocation.coordinate.latitude
@@ -125,6 +130,18 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             print("Error: \(error) " + "description \(error.localizedDescription)")
         }
     }
-
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        if !overlay.isKindOfClass(MKPolyline) {
+            print("Hey, that's not a polyline.")
+            return MKOverlayRenderer()
+        }
+        
+        let polyline = overlay as! MKPolyline
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.strokeColor = UIColor.blueColor()
+        renderer.lineWidth = 3
+        return renderer
+    }
 }
 
