@@ -154,28 +154,28 @@
                                                                                     <rect key="frame" x="154" y="11" width="17" height="21"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Foo" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6wi-nQ-Yhk">
                                                                                     <rect key="frame" x="548" y="11" width="42" height="21"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="1" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q32-12-hzj">
                                                                                     <rect key="frame" x="172" y="11" width="142" height="21"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="1" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZXa-RQ-X95">
                                                                                     <rect key="frame" x="8" y="11" width="145" height="21"/>
                                                                                     <animations/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                             </subviews>
@@ -218,11 +218,35 @@
                     <tabBarItem key="tabBarItem" title="Trips" image="tabbar_view.png" selectedImage="tabbar_view.png" id="H6o-Xn-3Q5"/>
                     <connections>
                         <outlet property="tripTableView" destination="tdR-jt-rvB" id="44t-hh-b9A"/>
+                        <segue destination="eVV-eR-xoK" kind="show" identifier="ShowTripMap" id="rMu-ed-YfF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mEe-LV-dm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="413"/>
+            <point key="canvasLocation" x="945" y="413"/>
+        </scene>
+        <!--Trip Detail Controller-->
+        <scene sceneID="n9x-q3-JAS">
+            <objects>
+                <viewController id="eVV-eR-xoK" customClass="TripDetailController" customModule="CycleSaver" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mcv-KS-AbH"/>
+                        <viewControllerLayoutGuide type="bottom" id="3HD-kp-Flo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Jw-hI-Tjq" customClass="MKMapView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="0Jw-hI-Tjq" id="adX-tR-M4T"/>
+                        <outlet property="view" destination="0Jw-hI-Tjq" id="ugY-jS-TSv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fVk-b5-hmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1654" y="413"/>
         </scene>
     </scenes>
     <resources>

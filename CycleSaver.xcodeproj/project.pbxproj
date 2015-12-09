@@ -14,6 +14,7 @@
 		460004371C138916005A23B4 /* LocationReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460004331C138916005A23B4 /* LocationReading.swift */; };
 		461C2B631C13E328004BBA05 /* TripListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C2B621C13E328004BBA05 /* TripListController.swift */; };
 		461C2B6A1C13F751004BBA05 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C2B691C13F751004BBA05 /* TripCell.swift */; };
+		468AF08C1C17B32900843F19 /* TripDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 468AF08B1C17B32900843F19 /* TripDetailController.swift */; };
 		468DE5E91C13DE24006738E0 /* tabbar_instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 468DE5DF1C13DE24006738E0 /* tabbar_instructions.png */; };
 		468DE5EA1C13DE24006738E0 /* tabbar_instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 468DE5E01C13DE24006738E0 /* tabbar_instructions@2x.png */; };
 		468DE5EB1C13DE24006738E0 /* tabbar_notes.png in Resources */ = {isa = PBXBuildFile; fileRef = 468DE5E11C13DE24006738E0 /* tabbar_notes.png */; };
@@ -59,6 +60,7 @@
 		460004331C138916005A23B4 /* LocationReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationReading.swift; sourceTree = "<group>"; };
 		461C2B621C13E328004BBA05 /* TripListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripListController.swift; sourceTree = "<group>"; };
 		461C2B691C13F751004BBA05 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		468AF08B1C17B32900843F19 /* TripDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailController.swift; sourceTree = "<group>"; };
 		468DE5DF1C13DE24006738E0 /* tabbar_instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_instructions.png; sourceTree = "<group>"; };
 		468DE5E01C13DE24006738E0 /* tabbar_instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_instructions@2x.png"; sourceTree = "<group>"; };
 		468DE5E11C13DE24006738E0 /* tabbar_notes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_notes.png; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				46D737211BEE4FFA0022361D /* MapController.swift */,
 				461C2B621C13E328004BBA05 /* TripListController.swift */,
+				468AF08B1C17B32900843F19 /* TripDetailController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468AF08C1C17B32900843F19 /* TripDetailController.swift in Sources */,
 				460004351C138916005A23B4 /* Trip.swift in Sources */,
 				46D737221BEE4FFA0022361D /* MapController.swift in Sources */,
 				460004361C138916005A23B4 /* LocationReading+CoreDataProperties.swift in Sources */,
