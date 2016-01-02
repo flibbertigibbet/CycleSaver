@@ -15,7 +15,7 @@ class TripDetailController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     var trip: Trip!
-    var coreDataStack: CoreDataStack!
+    lazy var coreDataStack = (UIApplication.sharedApplication().delegate as! AppDelegate).coreDataStack
     
     override func viewDidLoad() {
         super.viewDidLoad()

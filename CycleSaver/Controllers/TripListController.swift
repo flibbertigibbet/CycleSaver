@@ -18,7 +18,7 @@ class TripListController: UIViewController {
     @IBOutlet weak var tripTableView: UITableView!
     
     var fetchedResultsController : NSFetchedResultsController!
-    var coreDataStack: CoreDataStack!
+    lazy var coreDataStack = (UIApplication.sharedApplication().delegate as! AppDelegate).coreDataStack
     let formatter = NSDateFormatter()
     
     override func viewDidLoad() {

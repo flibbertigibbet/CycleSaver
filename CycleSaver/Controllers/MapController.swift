@@ -25,6 +25,7 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
     var tripEntity: NSEntityDescription?
     
     lazy var manager = (UIApplication.sharedApplication().delegate as! AppDelegate).manager
+    lazy var coreDataStack = (UIApplication.sharedApplication().delegate as! AppDelegate).coreDataStack
     var managedContext: NSManagedObjectContext!
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,8 +48,9 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         mapView.showsUserLocation = true
         
         
+        managedContext = coreDataStack.context
         if (managedContext == nil) {
-            print("Have no managed context in viewDidLoad!")
+            print("Have no core data context in viewDidLoad!")
         }
         
         tripEntity = NSEntityDescription.entityForName("Trip",
@@ -68,13 +70,9 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             
             if CLLocationManager.locationServicesEnabled() {
                 
-                do {
-                    currentTrip = Trip(entity: tripEntity!, insertIntoManagedObjectContext: managedContext)
-                    currentTrip?.start = NSDate()
-                    try managedContext.save()
-                } catch let error as NSError {
-                        print("Error: \(error) " + "description \(error.localizedDescription)")
-                }
+                currentTrip = Trip(entity: tripEntity!, insertIntoManagedObjectContext: managedContext)
+                currentTrip?.start = NSDate()
+                coreDataStack.saveContext()
                 
                 manager?.startUpdatingLocation()
                 print("started recording")
@@ -89,21 +87,23 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             manager?.stopUpdatingLocation()
             print("stopped recording")
             
-            do {
-                currentTrip?.stop = NSDate()
-                try managedContext.save()
-                currentTrip = nil
-                lastLocation = nil
-                mapView.removeOverlays(mapView.overlays)
-            } catch let error as NSError {
-                print("Error: \(error) " + "description \(error.localizedDescription)")
-            }
+            currentTrip?.stop = NSDate()
+            coreDataStack.saveContext()
+            currentTrip = nil
+            lastLocation = nil
+            mapView.removeOverlays(mapView.overlays)
         }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         
         print("new location: \(newLocation.coordinate)")
+        
+        guard let trip = currentTrip
+            else {
+                print("No trip to hold coordinates")
+                return
+        }
         
         // draw line from last location to this
         if (newLocation.horizontalAccuracy < drawIfWithinMeters) {
@@ -115,30 +115,22 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             lastLocation = newLocation.coordinate
         }
         
-        // TODO: guard against nil current trip
-        
         // save to CoreData
-        do {
-            let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
-            currentLocation.readingTrip = currentTrip!;
-            
-            currentLocation.latitude = newLocation.coordinate.latitude
-            currentLocation.longitude = newLocation.coordinate.longitude
-            currentLocation.altitude = newLocation.altitude
-            currentLocation.horizontalAccuracy = newLocation.horizontalAccuracy
-            currentLocation.speed = newLocation.speed
-            currentLocation.timestamp = newLocation.timestamp
-            
-            try managedContext.save()
-            
-        } catch let error as NSError {
-            print("Error: \(error) " + "description \(error.localizedDescription)")
-        }
+        let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
+        currentLocation.readingTrip = trip;
+        
+        currentLocation.latitude = newLocation.coordinate.latitude
+        currentLocation.longitude = newLocation.coordinate.longitude
+        currentLocation.altitude = newLocation.altitude
+        currentLocation.horizontalAccuracy = newLocation.horizontalAccuracy
+        currentLocation.speed = newLocation.speed
+        currentLocation.timestamp = newLocation.timestamp
+        
+        coreDataStack.saveContext()
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if !overlay.isKindOfClass(MKPolyline) {
-            print("Hey, that's not a polyline.")
             return MKOverlayRenderer()
         }
         
