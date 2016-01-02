@@ -19,7 +19,8 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
     
     var amRecording = false
     var currentTrip: Trip?
-    var lastLocation: CLLocationCoordinate2D?
+    var lastLocation: CLLocation?
+    var accruedDistance: Double = 0.0
     
     var readingEntity: NSEntityDescription?
     var tripEntity: NSEntityDescription?
@@ -88,9 +89,11 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             print("stopped recording")
             
             currentTrip?.stop = NSDate()
+            currentTrip?.distance = accruedDistance
             coreDataStack.saveContext()
             currentTrip = nil
             lastLocation = nil
+            accruedDistance = 0.0
             mapView.removeOverlays(mapView.overlays)
         }
     }
@@ -105,14 +108,15 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
                 return
         }
         
-        // draw line from last location to this
+        // draw line from last location to this and increment distance
         if (newLocation.horizontalAccuracy < drawIfWithinMeters) {
             if let last = lastLocation {
-                var coords = [last, newLocation.coordinate]
+                accruedDistance += newLocation.distanceFromLocation(last)
+                var coords = [last.coordinate, newLocation.coordinate]
                 let polyline = MKPolyline(coordinates: &coords, count: coords.count)
                 mapView.addOverlay(polyline)
             }
-            lastLocation = newLocation.coordinate
+            lastLocation = newLocation
         }
         
         // save to CoreData
