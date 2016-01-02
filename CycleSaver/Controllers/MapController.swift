@@ -15,7 +15,11 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
 
     @IBOutlet weak var mapView: MKMapView!
     
+    // constants
     let drawIfWithinMeters = 100.0 // add to user-visible polyline points within this many meters of accuracy
+    
+    // start out centered on Philly City Hall
+    let originPoint = CLLocation(latitude: 39.952460, longitude: -75.163323)
     
     var amRecording = false
     var currentTrip: Trip?
@@ -39,10 +43,8 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         mapView.delegate = self
         manager?.delegate = self
         
-        // start out centered on Philly City Hall
-        let cityHall = CLLocation(latitude: 39.952460, longitude: -75.163323)
-        let cityHallRegion = MKCoordinateRegionMakeWithDistance(cityHall.coordinate, 2000, 2000)
-        mapView.setRegion(cityHallRegion, animated: false)
+        let originRegion = MKCoordinateRegionMakeWithDistance(originPoint.coordinate, 2000, 2000)
+        mapView.setRegion(originRegion, animated: false)
         
         // show and track user location
         mapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
@@ -91,6 +93,8 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             currentTrip?.stop = NSDate()
             currentTrip?.distance = accruedDistance
             coreDataStack.saveContext()
+            
+            // reset state
             currentTrip = nil
             lastLocation = nil
             accruedDistance = 0.0
