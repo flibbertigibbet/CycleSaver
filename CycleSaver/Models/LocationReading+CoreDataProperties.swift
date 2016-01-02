@@ -20,6 +20,6 @@ extension LocationReading {
     @NSManaged var speed: NSNumber?
     @NSManaged var horizontalAccuracy: NSNumber?
     @NSManaged var timestamp: NSDate?
-    @NSManaged var readingTrip: NSOrderedSet?
+    @NSManaged var readingTrip: Trip?
 
 }

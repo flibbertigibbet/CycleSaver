@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Xcode 7.0">
     <entity name="LocationReading" representedClassName=".LocationReading" syncable="YES">
         <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="horizontalAccuracy" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="horizontalAccuracy" attributeType="Double" defaultValueString="0.0" indexed="YES" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="readingTrip" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Trip" inverseName="tripReadings" inverseEntity="Trip" syncable="YES"/>
+        <attribute name="timestamp" attributeType="Date" indexed="YES" syncable="YES"/>
+        <relationship name="readingTrip" maxCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="Trip" inverseName="tripReadings" inverseEntity="Trip" syncable="YES"/>
+        <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="LocationReading"/>
+        </fetchedProperty>
     </entity>
     <entity name="Trip" representedClassName=".Trip" syncable="YES">
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="stop" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="tripReadings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocationReading" inverseName="readingTrip" inverseEntity="LocationReading" syncable="YES"/>
+        <relationship name="tripReadings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocationReading" inverseName="readingTrip" inverseEntity="LocationReading" syncable="YES"/>
     </entity>
+    <fetchRequest name="FetchTripCoords" entity="LocationReading" predicateString="horizontalAccuracy &gt; 0.7"/>
     <elements>
-        <element name="LocationReading" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="LocationReading" positionX="-63" positionY="-18" width="128" height="179"/>
         <element name="Trip" positionX="-54" positionY="36" width="128" height="90"/>
     </elements>
 </model>

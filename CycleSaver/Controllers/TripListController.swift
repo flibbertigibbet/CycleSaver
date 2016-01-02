@@ -35,9 +35,10 @@ class TripListController: UIViewController {
         fetchRequest.sortDescriptors = [startSort, stopSort]
 
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: "tripDataCache")
+            managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
+        tripTableView.delegate = self
 
         do {
             try fetchedResultsController.performFetch()
@@ -94,8 +95,18 @@ extension TripListController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let trip = fetchedResultsController.objectAtIndexPath(indexPath) as! Trip
-        // TODO: make this trigger
         print("Selected trip that started at \(trip.start).")
+        
+        self.performSegueWithIdentifier("ShowTripMap", sender: trip)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowTripMap") {
+            if let tripMapController = segue.destinationViewController as? TripDetailController {
+                tripMapController.trip = sender as? Trip
+                tripMapController.coreDataStack = coreDataStack
+            }
+        }
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
