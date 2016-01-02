@@ -13,9 +13,7 @@ import Foundation
 import CoreData
 
 extension Trip {
-
     @NSManaged var start: NSDate?
     @NSManaged var stop: NSDate?
-    @NSManaged var tripReadings: NSManagedObject?
-
+    @NSManaged var tripReadings: NSOrderedSet?
 }

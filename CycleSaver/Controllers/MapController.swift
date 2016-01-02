@@ -115,9 +115,12 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
             lastLocation = newLocation.coordinate
         }
         
+        // TODO: guard against nil current trip
+        
         // save to CoreData
         do {
             let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
+            currentLocation.readingTrip = currentTrip!;
             
             currentLocation.latitude = newLocation.coordinate.latitude
             currentLocation.longitude = newLocation.coordinate.longitude

@@ -97,8 +97,16 @@ extension TripListController: UITableViewDelegate {
         let trip = fetchedResultsController.objectAtIndexPath(indexPath) as! Trip
         print("Selected trip that started at \(trip.start).")
         
-        // TODO: load map view with linestring
         self.performSegueWithIdentifier("ShowTripMap", sender: trip)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowTripMap") {
+            if let tripMapController = segue.destinationViewController as? TripDetailController {
+                tripMapController.trip = sender as? Trip
+                tripMapController.coreDataStack = coreDataStack
+            }
+        }
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
