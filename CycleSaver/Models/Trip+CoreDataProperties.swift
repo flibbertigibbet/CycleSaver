@@ -13,6 +13,7 @@ import Foundation
 import CoreData
 
 extension Trip {
+    @NSManaged var distance: NSNumber?
     @NSManaged var start: NSDate?
     @NSManaged var stop: NSDate?
     @NSManaged var tripReadings: NSOrderedSet?

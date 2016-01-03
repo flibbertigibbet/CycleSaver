@@ -13,13 +13,14 @@
         </fetchedProperty>
     </entity>
     <entity name="Trip" representedClassName=".Trip" syncable="YES">
+        <attribute name="distance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="stop" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="tripReadings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="LocationReading" inverseName="readingTrip" inverseEntity="LocationReading" syncable="YES"/>
     </entity>
-    <fetchRequest name="FetchTripCoords" entity="LocationReading" predicateString="horizontalAccuracy &gt; 0.7"/>
+    <fetchRequest name="FetchTripCoords" entity="LocationReading" predicateString="horizontalAccuracy &lt; 100"/>
     <elements>
         <element name="LocationReading" positionX="-63" positionY="-18" width="128" height="179"/>
-        <element name="Trip" positionX="-54" positionY="36" width="128" height="90"/>
+        <element name="Trip" positionX="-54" positionY="36" width="128" height="105"/>
     </elements>
 </model>

@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var coreDataStack = CoreDataStack()
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -29,19 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //manager?.allowsBackgroundLocationUpdates = true
         //manager?.allowDeferredLocationUpdatesUntilTraveled(<#T##distance: CLLocationDistance##CLLocationDistance#>, timeout: <#T##NSTimeInterval#>)
         
-        let navigationController = self.window!.rootViewController as! UINavigationController
-                let tabController = navigationController.topViewController as! UITabBarController
-        
-        let viewController = tabController.viewControllers?.first as! MapController
-            viewController.managedContext = coreDataStack.context
-        
-        let tripsController = tabController.viewControllers?.last as! TripListController
-        
-        tripsController.coreDataStack = coreDataStack
-        
         return true
     }
-
     
     func applicationDidEnterBackground(application: UIApplication) {
         coreDataStack.saveContext()
