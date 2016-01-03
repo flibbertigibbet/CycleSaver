@@ -7,7 +7,7 @@
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="timestamp" attributeType="Date" indexed="YES" syncable="YES"/>
-        <relationship name="readingTrip" maxCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="Trip" inverseName="tripReadings" inverseEntity="Trip" syncable="YES"/>
+        <relationship name="readingTrip" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="Trip" inverseName="tripReadings" inverseEntity="Trip" syncable="YES"/>
         <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="LocationReading"/>
         </fetchedProperty>

@@ -43,13 +43,17 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         mapView.delegate = self
         manager?.delegate = self
         
+        manager?.allowsBackgroundLocationUpdates = true
+        
+        // defer for meters / seconds
+        manager?.allowDeferredLocationUpdatesUntilTraveled(50, timeout: 10)
+        
         let originRegion = MKCoordinateRegionMakeWithDistance(originPoint.coordinate, 2000, 2000)
         mapView.setRegion(originRegion, animated: false)
         
         // show and track user location
         mapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
         mapView.showsUserLocation = true
-        
         
         managedContext = coreDataStack.context
         if (managedContext == nil) {
@@ -61,6 +65,22 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
 
         readingEntity = NSEntityDescription.entityForName("LocationReading",
             inManagedObjectContext: managedContext)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if (amRecording) {
+            print("Back to foreground; resume updates")
+            manager?.startUpdatingLocation()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("TODO: Going to background; stop visible updates")
+        manager?.stopUpdatingLocation()
     }
     
     @IBAction func startStopButtonTapped(sender: UIButton) {
@@ -77,6 +97,10 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
                 currentTrip?.start = NSDate()
                 coreDataStack.saveContext()
                 
+                if CLLocationManager.significantLocationChangeMonitoringAvailable() {
+                    manager?.startMonitoringSignificantLocationChanges()
+                }
+                
                 manager?.startUpdatingLocation()
                 print("started recording")
             } else {
@@ -87,7 +111,10 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         } else {
             sender.setTitle("Start", forState: UIControlState.Normal)
             sender.backgroundColor = UIColor.greenColor()
+            
             manager?.stopUpdatingLocation()
+            manager?.stopMonitoringSignificantLocationChanges()
+            
             print("stopped recording")
             
             currentTrip?.stop = NSDate()
@@ -102,41 +129,6 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
-        
-        print("new location: \(newLocation.coordinate)")
-        
-        guard let trip = currentTrip
-            else {
-                print("No trip to hold coordinates")
-                return
-        }
-        
-        // draw line from last location to this and increment distance
-        if (newLocation.horizontalAccuracy < drawIfWithinMeters) {
-            if let last = lastLocation {
-                accruedDistance += newLocation.distanceFromLocation(last)
-                var coords = [last.coordinate, newLocation.coordinate]
-                let polyline = MKPolyline(coordinates: &coords, count: coords.count)
-                mapView.addOverlay(polyline)
-            }
-            lastLocation = newLocation
-        }
-        
-        // save to CoreData
-        let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
-        currentLocation.readingTrip = trip;
-        
-        currentLocation.latitude = newLocation.coordinate.latitude
-        currentLocation.longitude = newLocation.coordinate.longitude
-        currentLocation.altitude = newLocation.altitude
-        currentLocation.horizontalAccuracy = newLocation.horizontalAccuracy
-        currentLocation.speed = newLocation.speed
-        currentLocation.timestamp = newLocation.timestamp
-        
-        coreDataStack.saveContext()
-    }
-    
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if !overlay.isKindOfClass(MKPolyline) {
             return MKOverlayRenderer()
@@ -147,6 +139,76 @@ class MapController: UIViewController, MKMapViewDelegate, CLLocationManagerDeleg
         renderer.strokeColor = UIColor.blueColor()
         renderer.lineWidth = 3
         return renderer
+    }
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        print("Authorization status changed for location updates")
+        
+        let locationPermissions = CLLocationManager.authorizationStatus()
+        
+        switch locationPermissions {
+        case .Authorized:
+            print("Authorized")
+        case .Denied:
+            print("Denied location update permission")
+            handleLocationPermissionDenial()
+        case .NotDetermined:
+            // should not need to happen here, as app delegate already asked
+            manager.requestAlwaysAuthorization()
+        case .Restricted:
+            print("Denied location update permission")
+            handleLocationPermissionDenial()
+        default:
+            break
+        }
+    }
+    
+    func handleLocationPermissionDenial() {
+        // TODO: show a useful message, then exit
+        print("TODO: show useful message before exiting")
+        UIControl().sendAction(Selector("suspend"), to: UIApplication.sharedApplication(), forEvent: nil)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("got \(locations.count) deferred location updates")
+        
+        guard let trip = currentTrip
+            else {
+                print("No trip to hold coordinates")
+                return
+        }
+        
+        var coords = [CLLocationCoordinate2D]()
+        if let last = lastLocation {
+            coords.append(last.coordinate)
+        }
+        
+        for newLocation in locations {
+            if (newLocation.horizontalAccuracy < drawIfWithinMeters) {
+                if let last = lastLocation {
+                    accruedDistance += newLocation.distanceFromLocation(last)
+                    coords.append(newLocation.coordinate)
+                    
+                }
+                lastLocation = newLocation
+            }
+            
+            // save to CoreData
+            let currentLocation = LocationReading(entity: readingEntity!, insertIntoManagedObjectContext: managedContext)
+            currentLocation.readingTrip = trip;
+            
+            currentLocation.latitude = newLocation.coordinate.latitude
+            currentLocation.longitude = newLocation.coordinate.longitude
+            currentLocation.altitude = newLocation.altitude
+            currentLocation.horizontalAccuracy = newLocation.horizontalAccuracy
+            currentLocation.speed = newLocation.speed
+            currentLocation.timestamp = newLocation.timestamp
+        }
+        
+        coreDataStack.saveContext()
+        
+        let polyline = MKPolyline(coordinates: &coords, count: coords.count)
+        mapView.addOverlay(polyline)
     }
 }
 

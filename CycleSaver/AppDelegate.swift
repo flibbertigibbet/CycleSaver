@@ -24,19 +24,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         manager = CLLocationManager()
         manager?.requestAlwaysAuthorization()
-        manager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        //manager?.allowsBackgroundLocationUpdates = true
-        //manager?.allowDeferredLocationUpdatesUntilTraveled(<#T##distance: CLLocationDistance##CLLocationDistance#>, timeout: <#T##NSTimeInterval#>)
+
+        // must be 'best' with no distance filter for update deferral to work
+        manager?.desiredAccuracy = kCLLocationAccuracyBest
+        manager?.distanceFilter = kCLDistanceFilterNone
+        
+        manager?.pausesLocationUpdatesAutomatically = false
+        manager?.activityType = CLActivityType.Fitness
         
         return true
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
         coreDataStack.saveContext()
+        print("Going away")
+        manager?.stopUpdatingLocation()
     }
     
     func applicationWillTerminate(application: UIApplication) {
         coreDataStack.saveContext()
+        print("Bye!")
+        manager?.stopUpdatingLocation()
     }
 }
 

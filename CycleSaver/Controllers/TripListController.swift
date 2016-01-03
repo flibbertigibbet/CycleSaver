@@ -60,7 +60,7 @@ class TripListController: UIViewController {
             cell.stopLabel.text = formatter.stringFromDate(tripStop)
         }
         
-        cell.coordsCount.text = "???"
+        cell.coordsCount.text = "..."
         // TODO: how to get related obj
     }
     
