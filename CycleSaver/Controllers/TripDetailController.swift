@@ -42,8 +42,9 @@ class TripDetailController: UIViewController, MKMapViewDelegate {
             
             readings = try coreDataStack.context.executeFetchRequest(fetchRequest) as! [LocationReading]
             
+            print("Using \(readings.count) readings with accuracy within 100 meters")
             print("Total trip readings: \(trip.tripReadings!.count)");
-            print("Using \(readings.count) readings with accuracy > 70%")
+            print("Trip distance: \(trip.distance as! Double / 1609.344) miles")
             
             
             var coords: [CLLocationCoordinate2D] = []
